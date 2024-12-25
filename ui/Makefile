@@ -1,5 +1,5 @@
 IMAGE_NAME ?= ui
-TAG ?= latest
+TAG ?= project
 REGISTRY ?= victoruzunov
 
 # Full image name

@@ -1,5 +1,5 @@
 IMAGE_NAME ?= todoservice
-TAG ?= latest
+TAG ?= project
 REGISTRY ?= victoruzunov
 
 # Full image name
