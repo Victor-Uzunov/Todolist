@@ -4,7 +4,7 @@ deployment:
   migrations:
     image: victoruzunov/migrate
     pullPolicy: Always
-    tag: project
+    tag: latest
 app:
   postgres:
     databaseHost: "localhost"

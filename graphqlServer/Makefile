@@ -1,5 +1,5 @@
 IMAGE_NAME ?= graphql
-TAG ?= latest
+TAG ?= project
 REGISTRY ?= victoruzunov
 
 # Full image name
