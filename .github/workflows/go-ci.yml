@@ -113,11 +113,19 @@ jobs:
         run: |
           cd todoservice
           echo "${{ secrets.ENV_REST_CONTENT }}" > .env
-      - name: Run reusable build workflow
-        uses: ./.github/workflows/build-and-scan.yml
+      - name: Build Docker image
+        run: |
+          cd todoservice
+          make build
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          image: 'victoruzunov/todoservice:project'
-          directory: 'todoservice'
+          image-ref: 'victoruzunov/todoservice:project'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
 
   build-and-scan-graphql:
     needs: [build-rest, build-graphql]
@@ -129,11 +137,19 @@ jobs:
         run: |
           cd graphqlServer
           echo "${{ secrets.ENV_GRAPHQL_CONTENT }}" > .env
-      - name: Run reusable build workflow
-        uses: ./.github/workflows/build-and-scan.yml
+      - name: Build Docker image
+        run: |
+          cd graphqlServer
+          make build
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          image: 'victoruzunov/graphql:project'
-          directory: 'graphqlServer'
+          image-ref: 'victoruzunov/graphql:project'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
 
   build-and-scan-ui:
     needs: [build-rest, build-graphql]
