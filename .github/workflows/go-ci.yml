@@ -68,6 +68,35 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
+  snyk-test:
+    runs-on: ubuntu-latest
+    needs: [ build-rest, build-graphql]
+    permissions:
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22.5'
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Install Snyk
+        run: npm install -g snyk
+
+      - name: Authenticate Snyk
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk auth $SNYK_TOKEN
+
+      - name: Run Snyk to check for vulnerabilities
+        run: snyk test --file=go.mod --severity-threshold=high
+
+
 
   push-docker:
     needs: [build-rest, build-graphql]
