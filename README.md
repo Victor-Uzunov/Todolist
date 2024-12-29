@@ -65,7 +65,8 @@ The GitHub organization should have 3 teams - **readers**, **writers**, and **ad
     - Create an initial SQL migration that sets up the DB status.
     - Define GoLang DB Entities.
   - Implement converters that convert DB entities to models and models to entities.
-  - Implement a repo layer that talks with the database and use it in the service layer.
+  - Implement a repo layer that talks with the database 
+  and use it in the service layer.
 
 - **GraphQL**:
   - Implement another server - GraphQL API facade that calls the REST API.
@@ -77,7 +78,8 @@ The GitHub organization should have 3 teams - **readers**, **writers**, and **ad
     - Define Users table and add "ownership" to the lists so that only 
     the owners can modify and view the lists.
     - Use a tenant header that is propagated from the GraphQL Facade 
-    to the REST API and have the service and repo layer take the user into consideration.
+    to the REST API and have the service and repo layer 
+    take the user into consideration.
   - **Auth/Authz**:
     - Define 3 GitHub organizations - read/write/admin.
     - Create a GitHub OAuth app.
