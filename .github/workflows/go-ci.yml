@@ -16,31 +16,15 @@ jobs:
     with:
       path: graphqlServer
 
-  build:
-    runs-on: ubuntu-latest
+  build-rest:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      path: todoservice
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: '1.22.5'
-
-    - name: Install dependencies
-      run: |
-        cd todoservice
-        go mod tidy
-
-    - name: Run tests
-      run: |
-        cd todoservice
-        go test -v ./...
-    - name: Build
-      run: |
-        cd todoservice/cmd/todoapp
-        go build -o myapp .
+  build-graphql:
+    uses: ./.github/workflows/reusable_build.yml
+    with:
+      path: graphqlServer
 
   push-docker:
     needs: build
