@@ -53,8 +53,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up Go environment
+        shell: bash
         run: |
-          curl -sSL https://install.golang.org | sh
+          curl -sSL https://install.golang.org | bash
           export PATH=$PATH:/usr/local/go/bin
           go version
 
