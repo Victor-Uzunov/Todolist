@@ -45,6 +45,31 @@ jobs:
     with:
       path: graphqlServer
 
+  sonarcloud-scan:
+    runs-on: ubuntu-latest
+    needs: [ build-rest, build-graphql ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go environment
+        run: |
+          curl -sSL https://install.golang.org | sh
+          export PATH=$PATH:/usr/local/go/bin
+          go version
+
+      - name: Install dependencies and run tests
+        run: |
+          go mod tidy
+          go test ./...
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+
+
   push-docker:
     needs: [build-rest, build-graphql]
     runs-on: ubuntu-latest
