@@ -6,7 +6,7 @@ COPY . .
 COPY .env ./
 RUN go mod download
 
-RUN CGO_ENABLED=0 go build -o bin/main ./cmd/todoapp/main.go
+RUN CGO_ENABLED=0 go build -o bin/main ./cmd/main.go
 
 
 FROM alpine:3

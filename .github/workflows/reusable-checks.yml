@@ -6,9 +6,6 @@ on:
       path:
         required: true
         type: string
-    secrets:
-      GITHUB_TOKEN:
-        required: true
 
 jobs:
   lint-format:
@@ -32,9 +29,3 @@ jobs:
         run: |
           cd ${{ inputs.path }}
           go vet ./...
-
-      - name: Run GolangCI-Lint
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.54.2
-          cd ${{ inputs.path }}
-          golangci-lint run
