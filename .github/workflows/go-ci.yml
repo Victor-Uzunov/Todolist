@@ -25,17 +25,19 @@ jobs:
       path: graphqlServer
 
   build-rest:
+    needs: lint-format-check-rest
     uses: ./.github/workflows/reusable_build.yml
     with:
       path: todoservice
 
   build-graphql:
+    needs: lint-format-check-graphql
     uses: ./.github/workflows/reusable_build.yml
     with:
       path: graphqlServer
 
   push-docker:
-    needs: build
+    needs: [build-rest, build-graphql]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
