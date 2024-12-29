@@ -6,6 +6,9 @@ on:
       image:
         required: true
         type: string
+      directory:
+        required: true
+        type: string
 
 jobs:
   build-and-scan:
@@ -16,6 +19,7 @@ jobs:
 
       - name: Build Docker image
         run: |
+          cd ${{ inputs.directory }}
           docker build -t ${{ inputs.image }} .
 
       - name: Run Trivy vulnerability scanner

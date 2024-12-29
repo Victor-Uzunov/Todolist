@@ -92,24 +92,28 @@ jobs:
     uses: ./.github/workflows/build-and-scan.yml
     with:
       image: 'victoruzunov/todoservice:project'
+      directory: 'todoservice'
 
   build-and-scan-graphql:
     needs: [build-rest, build-graphql]
     uses: ./.github/workflows/build-and-scan.yml
     with:
       image: 'victoruzunov/graphql:project'
+      directory: 'graphql'
 
   build-and-scan-ui:
     needs: [build-rest, build-graphql]
     uses: ./.github/workflows/build-and-scan.yml
     with:
       image: 'victoruzunov/ui:project'
+      directory: 'ui'
 
   build-and-scan-migrate:
     needs: [build-rest, build-graphql]
     uses: ./.github/workflows/build-and-scan.yml
     with:
       image: 'victoruzunov/migrate:project'
+      directory: 'migrate'
 
 
   push-docker-images:
