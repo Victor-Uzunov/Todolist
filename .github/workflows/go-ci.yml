@@ -5,6 +5,17 @@ on:
     branches:
       - '*'
 jobs:
+
+  lint-format-check-rest:
+    uses: ./.github/workflows/reusable_checks.yml
+    with:
+      path: todoservice
+
+  lint-format-check-graphql:
+    uses: ./.github/workflows/reusable_checks.yml
+    with:
+      path: graphqlServer
+
   build:
     runs-on: ubuntu-latest
 
