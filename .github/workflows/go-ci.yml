@@ -219,14 +219,18 @@ jobs:
 
       - name: Install Istioctl
         run: |
-          curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.18.2 sh -
-          sudo mv istio-1.18.2/bin/istioctl /usr/local/bin/
+          curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.23.3 sh -
+          sudo mv istio-1.23.3/bin/istioctl /usr/local/bin/      
+
+      - name: Verify Istio Version
+        run: |
+          istioctl version
 
       - name: Install Istio
         run: |
-          istioctl install --set profile=default -y
+          istioctl install --set profile=default
 
-      - name: Enable Istio Injection for Namespace
+      - name: Create Namespace and Enable Istio Injection
         run: |
           kubectl create namespace todoapp-system
           kubectl label namespace todoapp-system istio-injection=enabled
@@ -245,3 +249,4 @@ jobs:
         if: always()
         run: |
           k3d cluster delete my-cluster
+  
