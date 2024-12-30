@@ -217,9 +217,19 @@ jobs:
             --k3s-arg "--disable=traefik@server:*" \
             --k3s-arg '--kube-apiserver-arg=anonymous-auth=true@server:*'
 
-      - name: Create Namespace
+      - name: Install Istioctl
+        run: |
+          curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.18.2 sh -
+          sudo mv istio-1.18.2/bin/istioctl /usr/local/bin/
+
+      - name: Install Istio
+        run: |
+          istioctl install --set profile=default -y
+
+      - name: Enable Istio Injection for Namespace
         run: |
           kubectl create namespace todoapp-system
+          kubectl label namespace todoapp-system istio-injection=enabled
 
       - name: Deploy Helm Chart
         run: |
