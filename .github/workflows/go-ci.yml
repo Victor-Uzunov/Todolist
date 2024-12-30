@@ -224,7 +224,7 @@ jobs:
 
       - name: Install Istio
         run: |
-          istioctl install --set profile=default --yes
+          istioctl install --set profile=default -y
 
       - name: Verify Istio Version
         run: |
