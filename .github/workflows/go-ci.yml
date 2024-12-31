@@ -104,7 +104,7 @@ jobs:
           cd ../graphqlServer
           snyk test --file=go.mod --severity-threshold=high
 
-  build-and-scan-todoservice:
+  trivy-scan-todoservice:
     needs: [build-rest, build-graphql]
     runs-on: ubuntu-latest
     steps:
@@ -128,7 +128,7 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
 
-  build-and-scan-graphql:
+  trivy-scan-graphql:
     needs: [build-rest, build-graphql]
     runs-on: ubuntu-latest
     steps:
@@ -200,6 +200,7 @@ jobs:
         working-directory: ui
 
   deploy-to-k3d:
+    needs: push-docker-images
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
