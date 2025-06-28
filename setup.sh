@@ -39,7 +39,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-CHART_PATH="${HOME}/intern-project/charts/todoapp"
+CHART_PATH="${HOME}/SAPDevelop/go/src/github.com/devops-project/charts/todoapp"
 RELEASE_NAME="todoapp"
 
 echo "Installing Helm chart from '$CHART_PATH' in 'todoapp-system' namespace..."
