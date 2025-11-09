@@ -1,6 +1,6 @@
 # DevOps project
 
-A repository for my project for the Modern DevOps Practices course at FMI.
+Todoist-style REST + GraphQL API: secure GitHub OAuth login, JWT & refresh-token auth, role-based access control.
 
 ## Todo List App
 
